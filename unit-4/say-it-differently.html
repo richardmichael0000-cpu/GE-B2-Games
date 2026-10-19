@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123c2c">
+<title>Say It Differently! | Gold Experience B2 Unit 4</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;background:#f1f6f1;color:#153e2b;--green:#216841;--dark:#123c2c;--muted:#53705d;--line:#cfddcf}
+*{box-sizing:border-box}body{margin:0}button{font:inherit;cursor:pointer}button:disabled{cursor:default}button:focus-visible,a:focus-visible{outline:4px solid #e9b345;outline-offset:2px}
+.top{background:var(--dark);color:#fff;padding:15px max(20px,calc((100vw - 1230px)/2));display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.top strong{font-size:20px}.top .label{font-size:13px;color:#c4e1ce;margin-top:5px}.top a{color:white}.top button{background:transparent;color:#fff;padding:8px 13px;border:1px solid #9bb9a6;border-radius:10px}
+main{max-width:1250px;width:96%;margin:22px auto}.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,42px);box-shadow:0 8px 30px #0b4b2711}
+.hidden{display:none!important}.eyebrow{font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:800}
+h1{font-size:clamp(35px,5.5vw,67px);line-height:1.06;letter-spacing:-.04em;margin:12px 0 20px}h2{font-size:clamp(22px,2.5vw,30px)}
+.lead{font-size:clamp(19px,2.25vw,27px);line-height:1.4;color:#375e46}.intro{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
+.rules{background:#edf5ec;padding:22px;border-radius:17px;font-size:19px;line-height:1.65}.rules p{margin:8px 0 18px}.rules strong{font-size:20px}
+button.primary{border:0;border-radius:13px;background:var(--green);color:white;font-size:21px;font-weight:800;padding:15px 25px}
+button.secondary{border:2px solid #c3d7c6;border-radius:13px;background:#edf4ec;color:var(--dark);font-size:17px;font-weight:bold;padding:14px 19px}
+button.outline{border:2px solid var(--green);border-radius:13px;background:white;color:var(--dark);font-size:17px;font-weight:bold;padding:13px 19px}
+.toggles{display:flex;gap:9px;margin:10px 0}.toggles button{border:2px solid #b2ccba;background:#fff;border-radius:10px;padding:11px 20px;font-size:19px;font-weight:700}.toggles button.on{background:var(--green);color:#fff;border-color:var(--green)}
+.fine{font-size:14px;color:#577562;margin-top:18px;line-height:1.45}
+.roundtop{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.progress{height:10px;border-radius:100px;background:#e6eee6;margin:14px 0 19px;overflow:hidden}.progress div{height:100%;background:#31875a;transition:width .2s}
+.teams{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 23px}
+.team{background:#f9fcf9;border:2px solid #cbdaca;border-radius:13px;color:var(--dark);text-align:center;padding:11px;min-width:0}
+.team.on{background:#e5f5e7;border-color:var(--green)}.team .name{font-size:14px;letter-spacing:.07em;font-weight:800}.team .score{font-size:clamp(24px,3vw,32px);font-weight:900;margin-top:4px}
+.question{font-size:clamp(24px,3vw,38px);font-weight:800;line-height:1.24;margin:10px 0 19px}
+.extract{background:#f0f5ef;border-left:7px solid var(--green);border-radius:12px;padding:17px 23px;margin-bottom:21px}
+.extract-head{color:var(--muted);font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+.extract-text{font-size:clamp(22px,2.5vw,32px);line-height:1.35}.answers{display:grid;gap:10px}
+.option{width:100%;min-height:79px;text-align:left;padding:14px 18px;background:white;border:2px solid #b9cdbb;border-radius:14px;display:flex;gap:17px;align-items:center;color:var(--dark);font-size:clamp(20px,2.1vw,27px);font-weight:700}
+.option:hover:not(:disabled){background:#eaf5eb;border-color:var(--green)}
+.option .letter{flex:none;width:47px;height:47px;border-radius:10px;background:#e4efe6;display:grid;place-items:center}
+.option.correct{background:#e5f6e7;border-color:#22804d}.option.wrong{background:#fff0ed;border-color:#bb4941}.option:disabled{opacity:1}
+.feedback{margin-top:16px;padding:18px 21px;background:#eaf5eb;border:1px solid #c7dfca;border-radius:13px;font-size:clamp(17px,1.7vw,21px);line-height:1.45}
+.feedback h3{font-size:23px;margin:0 0 10px}.feedback p{margin:5px 0 10px}.feedback .trap{color:#744b2b}
+.actions{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:22px}.actions .right{display:flex;gap:12px;flex-wrap:wrap}
+kbd{font-family:inherit;background:#e8eee8;border:1px solid #cad7cc;border-radius:5px;padding:2px 5px}.foot{text-align:center;font-size:13px;color:#577360;margin-top:14px}
+.ranking{padding:0;list-style:none}.ranking li{display:flex;justify-content:space-between;gap:10px;background:#edf5ec;border-radius:12px;padding:17px 20px;font-size:24px;font-weight:bold;margin:10px 0}
+@media(max-width:700px){main{margin:12px auto}.intro{grid-template-columns:1fr}.teams{grid-template-columns:repeat(2,1fr)}.top{padding:14px 17px}.actions .right{width:100%}.panel{padding:20px}.option{min-height:66px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+<div><strong>GOLD EXPERIENCE B2 · UNIT 4</strong><div class="label">Listening preparation · The Heart of the City</div></div>
+<div><a href="../index.html">Game library</a> &nbsp; <button type="button" id="fullscreen">Full screen</button></div>
+</header>
+<main>
+<section class="panel" id="intro">
+<div class="intro">
+<div><div class="eyebrow">5–7 minute classroom warm-up</div><h1>Say It<br>Differently!</h1>
+<p class="lead">Listening questions often express an idea one way, while the speaker says it <strong>another way</strong>. Can you spot the same meaning?</p>
+<button type="button" class="primary" id="start">Start game →</button>
+<p class="fine">Eight original practice rounds, designed to check understanding before the Student's Book listening. No textbook recording answers are given away.</p>
+</div>
+<div class="rules"><strong>How to play</strong>
+<p>1. One team answers each round.<br>2. Read the question and example.<br>3. Choose the best paraphrase.<br>4. Explain why a tempting wrong answer is wrong to earn a bonus.</p>
+<strong>Number of teams</strong>
+<div class="toggles" id="counts"><button class="on" data-count="2" type="button">2</button><button data-count="3" type="button">3</button><button data-count="4" type="button">4</button></div>
+</div></div>
+</section>
+<section class="panel hidden" id="game">
+<div class="roundtop"><span class="eyebrow" id="round"></span><span class="eyebrow" id="skill"></span></div>
+<div class="progress"><div id="fill"></div></div>
+<div class="teams" id="teams"></div>
+<div class="question" id="question"></div>
+<div class="extract"><div class="extract-head" id="extract-head"></div><div class="extract-text" id="extract"></div></div>
+<div class="answers" id="answers"></div>
+<div class="feedback hidden" id="feedback" aria-live="polite"></div>
+<div class="actions"><button class="secondary" id="reveal" type="button">Reveal answer (0 points)</button>
+<div class="right"><button class="outline hidden" id="bonus" type="button">+5 explanation bonus</button><button class="primary hidden" id="next" type="button">Next question →</button></div></div>
+<div class="foot">Teacher shortcuts: <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> choose an answer · <kbd>Enter</kbd> next · <kbd>F</kbd> full screen</div>
+</section>
+<section class="panel hidden" id="finish">
+<div class="eyebrow">Finished!</div><h1>Meaning matters.</h1>
+<p class="lead">Good listeners recognise paraphrases, not just familiar words.</p><h2>Team results</h2><ol id="ranking" class="ranking"></ol>
+<p class="lead">Next: read each question in the Student's Book, underline the key words, and listen for the <strong>meaning</strong>.</p>
+<button id="restart" type="button" class="primary">Play again</button>
+</section>
+</main>
+<script>
+'use strict';
+// Original, teacher-created preparation examples. Not quotations from the recording.
+const questions=[
+{skill:'Synonyms',q:'Which phrase means the same as “a peaceful place”?',label:'Phrase from a listening question',text:'A peaceful place to meet after school',
+options:['A place with lots of noise','Somewhere calm and quiet','An area that is hard to reach'],correct:1,
+why:'Peaceful means calm and quiet. Different words, same meaning.',trap:'“Hard to reach” describes accessibility, not peacefulness.'},
+{skill:'Paraphrases',q:'Which answer means “unreliable public transport”?',label:'What a speaker might say',text:'“You can never be sure when the next bus will turn up.”',
+options:['A service you cannot depend on','A service that is very expensive','A service with too many buses'],correct:0,
+why:'You cannot be sure when the bus arrives, so the service cannot be depended on.',trap:'The problem is reliability, not the price of the ticket.'},
+{skill:'Paraphrases',q:'Which answer expresses the same problem?',label:'What a speaker might say',text:'“There’s hardly anywhere for teenagers to hang out.”',
+options:['Young people dislike the town centre','Young people prefer staying at home','There are too few places for young people to meet'],correct:2,
+why:'“Hardly anywhere to hang out” means very few places to meet.',trap:'A shortage of facilities is not the same as a preference for staying at home.'},
+{skill:'Key meaning',q:'What does the boy like MOST about the new square?',label:'Short practice statement',text:'“The cafés are nice, but the best thing is finally having room to practise tricks on my skateboard.”',
+options:['Space for skateboarding','The new cafés','The shopping opportunities'],correct:0,
+why:'“The best thing” introduces his main preference. “Room to practise tricks” refers to skateboarding space.',trap:'The cafés are mentioned and praised, but they are not what he likes most.'},
+{skill:'Rephrasing reasons',q:'Why does the girl want buses to run later?',label:'Short practice statement',text:'“There are plenty of buses during the day. But after my evening class, Mum has to come and collect me.”',
+options:['She wants cheaper tickets','She has no suitable bus home in the evening','Her mother dislikes daytime driving'],correct:1,
+why:'Her mother has to collect her after class. The evening bus service does not meet her needs.',trap:'“Plenty of buses” refers to daytime, not evening travel.'},
+{skill:'Opinion changes',q:'How did the speaker’s attitude change?',label:'Short practice statement',text:'“I expected the skate park to be noisy and crowded. Once I visited, I realised it gave everyone a safe place to meet.”',
+options:['From enthusiastic to disappointed','From indifferent to angry','From negative to supportive'],correct:2,
+why:'The speaker first expected problems, then recognised a benefit.',trap:'Listen to the final opinion, not only the initial reaction.'},
+{skill:'Opinion and evidence',q:'What is the woman MAINLY concerned about?',label:'Short practice statement',text:'“The shopping centre could create jobs, but I’m worried the small independent shops nearby won’t survive.”',
+options:['Local shops might close','There will be too few jobs','People cannot find the shopping centre'],correct:0,
+why:'“Won’t survive” suggests that small shops may close. “I’m worried” signals her concern.',trap:'She mentions jobs as a benefit, not her main worry.'},
+{skill:'Full-sentence paraphrase',q:'Which option best captures the speaker’s point?',label:'Short practice statement',text:'“The park isn’t particularly impressive, but it’s one of the few places where we can all spend time without buying anything.”',
+options:['The park is exciting because it has expensive facilities','The park matters because it offers free space to meet','The park should be replaced with cafés'],correct:1,
+why:'“Without buying anything” means it is a free place to spend time. Its value is social, not visual.',trap:'“Isn’t particularly impressive” does not mean the park is useless.'}
+];
+const $=id=>document.getElementById(id);
+let count=2,score=[0,0,0,0],team=0,round=0,answered=false,bonusTaken=false;
+function show(id){['intro','game','finish'].forEach(s=>$(s).classList.toggle('hidden',s!==id))}
+function updateTeams(){
+const e=$('teams');e.textContent='';
+for(let i=0;i<count;i++){
+const b=document.createElement('button');b.type='button';b.className='team'+(team===i?' on':'');
+b.setAttribute('aria-pressed',team===i?'true':'false');
+const n=document.createElement('div');n.className='name';n.textContent='TEAM '+(i+1);
+const p=document.createElement('div');p.className='score';p.textContent=score[i]+' pts';
+b.append(n,p);b.onclick=()=>{team=i;updateTeams()};e.appendChild(b);
+}}
+function render(){
+answered=false;bonusTaken=false;
+const q=questions[round];$('round').textContent='ROUND '+(round+1)+' / '+questions.length;
+$('skill').textContent=q.skill;$('fill').style.width=100*(round+1)/questions.length+'%';
+$('question').textContent=q.q;$('extract-head').textContent=q.label;$('extract').textContent=q.text;
+const box=$('answers');box.textContent='';
+q.options.forEach((s,i)=>{
+const b=document.createElement('button');b.type='button';b.className='option';
+const l=document.createElement('span');l.className='letter';l.textContent='ABC'[i];
+const t=document.createElement('span');t.textContent=s;b.append(l,t);b.onclick=()=>answer(i);box.appendChild(b);
+});
+$('feedback').classList.add('hidden');$('reveal').classList.remove('hidden');$('bonus').classList.add('hidden');
+$('bonus').disabled=false;$('next').classList.add('hidden');updateTeams();show('game');
+}
+function answer(i){
+if(answered)return;answered=true;const q=questions[round];
+if(i===q.correct)score[team]+=10;
+Array.from($('answers').children).forEach((b,k)=>{b.disabled=true;if(k===q.correct)b.classList.add('correct');else if(k===i)b.classList.add('wrong')});
+const f=$('feedback');f.textContent='';
+const h=document.createElement('h3');
+h.textContent=i===-1?'Answer revealed':i===q.correct?'Correct! +10 points':'The correct answer is '+('ABC'[q.correct])+'.';
+const why=document.createElement('p');why.textContent=q.why;
+const trap=document.createElement('p');trap.className='trap';trap.textContent='Why another answer is wrong: '+q.trap;
+f.append(h,why,trap);f.classList.remove('hidden');
+$('reveal').classList.add('hidden');$('bonus').classList.remove('hidden');$('next').classList.remove('hidden');updateTeams();
+}
+function done(){
+const list=$('ranking');list.textContent='';
+Array.from({length:count},(_,i)=>({id:i,points:score[i]})).sort((a,b)=>b.points-a.points).forEach(o=>{
+const li=document.createElement('li');const name=document.createElement('span');name.textContent='Team '+(o.id+1);
+const pts=document.createElement('strong');pts.textContent=o.points+' pts';li.append(name,pts);list.append(li);
+});show('finish');
+}
+function newGame(){round=0;team=0;score=[0,0,0,0];render()}
+document.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{
+count=Number(b.dataset.count);document.querySelectorAll('[data-count]').forEach(c=>c.classList.toggle('on',c===b));
+});
+$('start').onclick=newGame;$('restart').onclick=()=>show('intro');
+$('reveal').onclick=()=>answer(-1);
+$('bonus').onclick=()=>{if(!answered||bonusTaken)return;bonusTaken=true;score[team]+=5;$('bonus').disabled=true;updateTeams()};
+$('next').onclick=()=>{if(!answered)return;if(round+1>=questions.length)done();else{round++;team=(team+1)%count;render()}};
+$('fullscreen').onclick=()=>{if(document.fullscreenElement){document.exitFullscreen?.()}else{document.documentElement.requestFullscreen?.().catch(()=>{})}};
+document.addEventListener('keydown',e=>{
+if(e.ctrlKey||e.altKey||e.metaKey)return;
+if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement){document.documentElement.requestFullscreen?.().catch(()=>{})}return}
+if($('game').classList.contains('hidden'))return;
+if(!answered&&['1','2','3'].includes(e.key))answer(Number(e.key)-1);
+if(answered&&e.key==='Enter'){$('next').click();e.preventDefault()}
+});
+</script>
+</body></html>

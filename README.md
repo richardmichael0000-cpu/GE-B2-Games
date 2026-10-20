@@ -9,6 +9,7 @@ A collection of short, classroom-ready HTML activities for **Gold Experience B2 
 | Unit | Focus | Game | Time |
 | --- | --- | --- | --- |
 | 4: The Heart of the City | Listening preparation: synonyms and paraphrases | [Say It Differently!](unit-4/say-it-differently.html) | 5–7 minutes |
+| 4: The Heart of the City | Use of English 2: prepositional phrases and sentence production | [Random Sentence Maker](https://wisers.my.canva.site/random-sentence-maker) (Canva) | 5–10 minutes |
 
 Other reusable templates planned: Pelmanism, Grammar Auction, Gameshow Quiz, Group Sort, and Open the Box.
 
@@ -29,6 +30,13 @@ The Unit 4 game works offline once you save its HTML file. It needs no installat
 - The teacher clicks **Next question** to move forward; turns then rotate automatically.
 - The practice examples are *not* excerpts from the copyrighted textbook recording and do not give away its answers.
 
+### Unit 4 game: Random Sentence Maker
+
+- Hosted on Canva and linked from the game library; it requires internet access.
+- Generates a phrase, Unit 4 vocabulary word, topic, and communicative function.
+- Students create original sentences; award up to 3 points for accurate phrase use, correct vocabulary use, and topic/function relevance.
+- The Canva game is not stored as an HTML file in this repository.
+
 ## Publish using GitHub Pages
 
 In this GitHub repository:
@@ -47,6 +55,7 @@ GitHub Pages may take a little time to publish a newly configured site. The live
 
 - `index.html` — library homepage
 - `unit-4/say-it-differently.html` — Unit 4 listening warm-up
+- External Canva link in `index.html` — Unit 4 Use of English 2 Random Sentence Maker
 - `README.md` — instructions and development notes
 
 ## Design principles

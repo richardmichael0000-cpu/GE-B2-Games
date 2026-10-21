@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finish the Sentence! | GE B2 Unit 4</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#173c29;background:#edf4ed}*{box-sizing:border-box}
+body{margin:0}main{max-width:1200px;margin:auto;padding:22px}header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+h1{font-size:clamp(29px,4vw,52px);margin:8px 0 6px}.sub{font-size:19px;margin:0 0 18px;color:#486552}
+a{color:#1c6841}button{font-family:inherit;cursor:pointer;border:0;border-radius:12px;font-weight:700}
+.topbtn{background:#dceadd;color:#235238;padding:11px 17px;font-size:15px}
+.modes{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.mode{background:white;color:#2c5b3f;border:2px solid #c9ddcb;padding:13px 20px;font-size:17px}
+.mode.active{background:#1d7043;color:white;border-color:#1d7043}
+.panel{background:white;border:2px solid #d9e5d9;border-radius:22px;box-shadow:0 8px 28px #183a2913;padding:clamp(22px,4vw,42px)}
+.level{font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:15px;color:#276a45}
+.instruction{font-size:clamp(20px,2.5vw,27px);font-weight:700;margin:14px 0 22px}
+.prompt{font-size:clamp(28px,4.1vw,53px);font-weight:700;line-height:1.35;min-height:135px;color:#152e20}
+.phrase{display:inline-block;background:#e6f4e8;color:#146439;border-radius:10px;padding:5px 15px}
+.options{display:flex;gap:12px;flex-wrap:wrap}.option{background:#eff4ef;border:2px solid #bfcfc0;color:#193c28;padding:12px 22px;font-size:26px;min-width:110px}
+.option.chosen{background:#cdebd3;border-color:#197b43}.feedback{margin-top:22px;padding:17px;border-radius:12px;background:#f1f7f0;font-size:clamp(19px,2vw,24px);line-height:1.5}
+.hidden{display:none}.controls{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}.mainbtn{background:#1c6f40;color:#fff;padding:16px 22px;font-size:20px}.secondary{background:#e0eee2;color:#225338;padding:16px 20px;font-size:19px}
+.strip{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:16px 0;padding:14px 17px;background:#e1ece0;border-radius:13px}
+.timer{font-size:27px;font-weight:800;font-variant-numeric:tabular-nums;min-width:65px}
+.scoreboard{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}.team{background:white;border:2px solid #ccdccc;border-radius:13px;padding:12px 16px;display:flex;gap:12px;align-items:center;font-size:21px;font-weight:700}.pts{font-size:29px;color:#18713f}.small{font-size:14px;padding:8px 12px;background:#deece0;color:#18432a}
+footer{color:#5c7563;font-size:14px;margin:18px 0}
+@media(max-width:600px){main{padding:12px}.panel{padding:20px}.team{width:100%;justify-content:space-between}.prompt{min-height:120px}}
+</style></head><body><main>
+<header><div><div class="level">Gold Experience B2 · Unit 4 · Use of English 2</div><h1>FINISH THE SENTENCE!</h1></div><button class="topbtn" onclick="document.documentElement.requestFullscreen?.()">Full screen</button></header>
+<p class="sub">One phrase at a time. Think, speak, and score!</p>
+<nav class="modes" aria-label="Challenge level">
+<button class="mode active" data-mode="fill" onclick="setMode('fill')">1. FILL IT · 1 point</button>
+<button class="mode" data-mode="finish" onclick="setMode('finish')">2. FINISH IT · 2 points</button>
+<button class="mode" data-mode="own" onclick="setMode('own')">3. MAKE IT YOURS · 3 points</button>
+</nav>
+<section class="panel">
+<div class="level" id="level">ROUND 1 · FILL IT</div>
+<div class="instruction" id="instruction">Choose the missing preposition.</div>
+<div class="prompt" id="prompt" aria-live="polite"></div>
+<div class="options" id="options"></div>
+<div class="feedback hidden" id="feedback"></div>
+<div class="controls">
+<button class="mainbtn" id="reveal" onclick="reveal()">Reveal answer</button>
+<button class="secondary" onclick="next()">Next challenge</button>
+</div>
+</section>
+<div class="strip"><strong>Speaking time</strong><span class="timer" id="timer">20s</span><button class="small" onclick="startTimer()">Start 20s</button><button class="small" onclick="resetTimer()">Reset</button><span id="roundNo">Challenge 1</span></div>
+<div class="scoreboard">
+<div class="team">Team A <span class="pts" id="scoreA">0</span><button class="small" onclick="award('A')">+ points</button><button class="small" onclick="adjust('A',-1)">−1</button></div>
+<div class="team">Team B <span class="pts" id="scoreB">0</span><button class="small" onclick="award('B')">+ points</button><button class="small" onclick="adjust('B',-1)">−1</button></div>
+<button class="small" onclick="if(confirm('Reset team scores?')){scores={A:0,B:0};renderScores()}">Reset scores</button>
+</div>
+<footer>Teacher-controlled: learners answer aloud before you reveal. Award points for accurate language; accept other grammatically correct sentences. No sign-in or internet required once this page is loaded.</footer>
+</main>
+<script>
+const items=[
+{phrase:"by surprise",gap:"The announcement took everyone ___ surprise.",opts:["by","at","in"],meaning:"unexpectedly",finish:"The news about our school ___",finishAnswer:"The news about our school trip took us by surprise.",own:"Tell us something that took you by surprise.",ownAnswer:"My friend's sudden visit took me by surprise."},
+{phrase:"at first sight",gap:"The strange bus looked impressive ___ first sight.",opts:["in","at","on"],meaning:"when you first see something",finish:"___, the new building looked ___",finishAnswer:"At first sight, the new building looked enormous.",own:"Describe your first impression of a place.",ownAnswer:"At first sight, the museum looked boring, but it was fascinating."},
+{phrase:"in fact",gap:"The bus seems slow. ___ fact, it's very fast.",opts:["on","at","in"],meaning:"actually",finish:"Some people think ___ . In fact, ___",finishAnswer:"Some people think cycling is dangerous. In fact, it can be very safe.",own:"Correct a common belief about school or city life.",ownAnswer:"Some people think all homework is difficult. In fact, some tasks are fun."},
+{phrase:"at least",gap:"The journey will take ___ least twenty minutes.",opts:["for","at","in"],meaning:"not less than",finish:"Our class needs at least ___",finishAnswer:"Our class needs at least ten minutes to prepare.",own:"Say the minimum time, money or number needed for something.",ownAnswer:"I need at least thirty minutes to get to school."},
+{phrase:"on the move",gap:"In a busy city, people are always ___ the move.",opts:["on","in","for"],meaning:"moving or travelling",finish:"During the school day, I am on the move when ___",finishAnswer:"During the school day, I am on the move when I change classrooms.",own:"Describe someone who is often busy travelling or moving.",ownAnswer:"My father is always on the move because he visits different offices."},
+{phrase:"for real",gap:"Is that flying taxi ___ real?",opts:["at","for","in"],meaning:"genuine or really happening",finish:"I couldn't believe ___ was for real.",finishAnswer:"I couldn't believe the robot waiter was for real.",own:"Describe something surprising you wondered was real.",ownAnswer:"When I saw the enormous bus, I asked if it was for real."},
+{phrase:"in danger",gap:"Cyclists can be ___ danger on busy roads.",opts:["in","on","at"],meaning:"at risk of harm",finish:"Students might be in danger if ___",finishAnswer:"Students might be in danger if they cross the road without looking.",own:"Describe a transport safety problem.",ownAnswer:"Passengers are in danger when drivers use their phones."},
+{phrase:"out of place",gap:"The futuristic bus looked ___ of place on the old street.",opts:["in","out","at"],meaning:"not fitting its surroundings",finish:"The ___ looked out of place because ___",finishAnswer:"The modern tower looked out of place because all the other buildings were old.",own:"Describe something unusual in a particular location.",ownAnswer:"The enormous advertising screen looked out of place in the quiet village."}
+];
+let mode="fill",current=0,shown=false,number=1,scores={A:0,B:0},seconds=20,interval=null,used=[];
+const $=id=>document.getElementById(id);
+function setMode(m){mode=m;used=[];number=1;current=Math.floor(Math.random()*items.length);used.push(current);document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));draw();resetTimer()}
+function draw(){shown=false;const d=items[current];$("feedback").classList.add("hidden");$("feedback").textContent="";$("options").innerHTML="";$("reveal").textContent="Reveal answer";$("roundNo").textContent="Challenge "+number;
+$("level").textContent=mode==="fill"?"ROUND 1 · FILL IT":mode==="finish"?"ROUND 2 · FINISH IT":"ROUND 3 · MAKE IT YOURS";
+$("instruction").textContent=mode==="fill"?"Choose the missing preposition.":mode==="finish"?"Finish the sentence using the highlighted phrase.":"Say an ORIGINAL sentence using this phrase.";
+if(mode==="fill"){$("prompt").textContent=d.gap;d.opts.forEach(o=>{const b=document.createElement("button");b.className="option";b.textContent=o;b.onclick=()=>{document.querySelectorAll(".option").forEach(x=>x.classList.remove("chosen"));b.classList.add("chosen")};$("options").appendChild(b)})}
+else if(mode==="finish"){$("prompt").innerHTML='<span class="phrase">'+d.phrase+'</span><div style="margin-top:22px">'+d.finish+'</div>'}
+else{$("prompt").innerHTML='<span class="phrase">'+d.phrase+'</span><div style="font-size:clamp(22px,2.8vw,32px);margin-top:22px">'+d.own+'</div>'}
+}
+function reveal(){const d=items[current];shown=true;$("feedback").classList.remove("hidden");$("feedback").textContent=(mode==="fill"?"Answer: "+d.phrase+". Meaning: "+d.meaning+".":mode==="finish"?"Example: "+d.finishAnswer:"Example: "+d.ownAnswer);$("reveal").textContent="Answer revealed"}
+function next(){if(used.length===items.length)used=[];const possible=items.map((_,i)=>i).filter(i=>!used.includes(i)&&i!==current);if(!possible.length){used=[];return next()}current=possible[Math.floor(Math.random()*possible.length)];used.push(current);number++;draw();resetTimer()}
+function renderScores(){$("scoreA").textContent=scores.A;$("scoreB").textContent=scores.B}
+function adjust(t,n){scores[t]=Math.max(0,scores[t]+n);renderScores()}
+function award(t){adjust(t,mode==="fill"?1:mode==="finish"?2:3)}
+function resetTimer(){clearInterval(interval);interval=null;seconds=20;$("timer").textContent="20s"}
+function startTimer(){resetTimer();interval=setInterval(()=>{seconds--;$("timer").textContent=seconds+"s";if(seconds<=0){clearInterval(interval);interval=null;$("timer").textContent="TIME!"}},1000)}
+document.addEventListener("keydown",e=>{if(e.code==="Space"&&e.target.tagName!=="BUTTON"){e.preventDefault();next()}if(e.key.toLowerCase()==="r")reveal()});
+draw();
+</script></body></html>

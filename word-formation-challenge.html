@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Word Formation Challenge</title>
+<style>
+:root{--g:#006442;--g2:#0b6f3a;--lg:#ddefe3;--lg2:#eef7f1;--red:#be282d;--ink:#181818;--mute:#5d6b63;--bg:#ffffff;--line:#c9dccf}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Aptos,"Segoe UI",Arial,sans-serif;display:flex;flex-direction:column}
+header{background:var(--g);color:#fff;display:flex;align-items:center;gap:1rem;padding:.6rem 1.2rem;flex-wrap:wrap}
+header h1{font-size:clamp(1.2rem,2.2vw,1.8rem);margin:0;letter-spacing:.02em;flex:1;min-width:12rem}
+header .meta{font-weight:700;font-size:clamp(1rem,1.6vw,1.3rem)}
+.hbtn{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7);border-radius:.5rem;padding:.35rem .8rem;font:inherit;font-weight:700;cursor:pointer}
+.hbtn:hover,.hbtn[aria-pressed="true"]{background:#fff;color:var(--g)}
+main{flex:1;display:flex;gap:1rem;padding:1rem 1.2rem;min-height:0}
+.stage{flex:1;display:flex;flex-direction:column;min-width:0}
+.card{flex:1;border:3px solid var(--g);border-radius:1rem;padding:clamp(1rem,2.5vw,2.2rem);display:flex;flex-direction:column;gap:1rem;overflow:auto}
+.chip{align-self:flex-start;background:var(--lg);color:var(--g);font-weight:800;border-radius:2rem;padding:.3rem 1rem;font-size:clamp(1rem,1.6vw,1.3rem)}
+.task{font-weight:700;color:var(--g);font-size:clamp(1.2rem,2.2vw,1.8rem);margin:0}
+.prompt{font-size:clamp(1.8rem,4vw,3.4rem);line-height:1.25;margin:0}
+.prompt .stem{color:var(--g);font-weight:800;white-space:nowrap}
+.prompt .gap{display:inline-block;min-width:5.5em;border-bottom:4px solid var(--ink);margin:0 .15em}
+.opts{display:flex;gap:1rem;flex-wrap:wrap}
+.opt{font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:700;border:3px solid var(--line);border-radius:.8rem;padding:.4rem 1.2rem;background:#fff;color:var(--ink)}
+.opt.right{border-color:var(--red);color:var(--red);background:#fff4f4}
+.opt.dim{opacity:.35}
+.answer{border-top:3px dashed var(--line);padding-top:1rem;display:none}
+.answer.show{display:block}
+.answer .a{color:var(--red);font-weight:800;font-size:clamp(1.8rem,4vw,3.2rem);margin:0 0 .4rem}
+.answer .why{font-size:clamp(1.2rem,2.2vw,1.8rem);margin:0;color:var(--ink)}
+.controls{display:flex;gap:.7rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+.btn{font:inherit;font-weight:800;font-size:clamp(1rem,1.8vw,1.4rem);border-radius:.7rem;padding:.6rem 1.2rem;border:3px solid var(--g);background:#fff;color:var(--g);cursor:pointer}
+.btn.primary{background:var(--g);color:#fff}
+.btn:disabled{opacity:.35;cursor:default}
+.timer{font-variant-numeric:tabular-nums;font-weight:800;font-size:clamp(1.6rem,3vw,2.4rem);min-width:4.5ch;text-align:center;color:var(--g)}
+.timer.low{color:var(--red)}
+.timer.done{color:#fff;background:var(--red);border-radius:.6rem;padding:0 .4rem}
+select{font:inherit;font-weight:700;font-size:1.1rem;padding:.4rem;border:2px solid var(--g);border-radius:.5rem;color:var(--g);background:#fff}
+.dots{display:flex;gap:.35rem;margin-left:auto;flex-wrap:wrap}
+.dot{width:1rem;height:1rem;border-radius:50%;background:var(--lg);border:2px solid var(--g)}
+.dot.on{background:var(--g)}
+aside{width:17rem;flex:none;border:3px solid var(--g);border-radius:1rem;padding:1rem;display:none;flex-direction:column;gap:.6rem;overflow:auto}
+aside.show{display:flex}
+aside h2{margin:0;color:var(--g);font-size:1.3rem}
+.team{display:flex;align-items:center;gap:.4rem;background:var(--lg2);border-radius:.6rem;padding:.4rem .6rem}
+.team .n{flex:1;font-weight:800;color:var(--g)}
+.team .s{font-weight:800;font-size:1.6rem;min-width:2ch;text-align:right}
+.sbtn{font:inherit;font-weight:800;border:2px solid var(--g);background:#fff;color:var(--g);border-radius:.4rem;padding:.15rem .5rem;cursor:pointer}
+.small{font-size:.95rem;color:var(--mute);margin:0}
+/* start screen */
+.intro{max-width:52rem;margin:auto;text-align:left}
+.intro h2{font-size:clamp(2rem,4.5vw,3.6rem);color:var(--g);margin:.2em 0}
+.intro ul{font-size:clamp(1.2rem,2.2vw,1.7rem);line-height:1.5;padding-left:1.2em}
+.intro .rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:.6rem;margin:1rem 0}
+.intro .rounds div{background:var(--lg);border-radius:.7rem;padding:.6rem .8rem;font-weight:700;color:var(--g);font-size:1.15rem}
+/* scoreboard */
+.board{flex:1;display:flex;flex-direction:column;gap:1rem}
+.board h2{margin:0;color:var(--g);font-size:clamp(1.6rem,3vw,2.6rem)}
+.teacher{display:flex;align-items:center;gap:1rem;background:var(--g);color:#fff;border-radius:1rem;padding:.8rem 1.2rem;flex-wrap:wrap}
+.teacher .big{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;min-width:2ch;text-align:center}
+.teacher .lbl{font-size:clamp(1.3rem,2.4vw,2rem);font-weight:800;flex:1}
+.teacher .sbtn{border-color:#fff;color:#fff;background:transparent;font-size:1.3rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:1rem}
+.bt{border:3px solid var(--g);border-radius:1rem;padding:.8rem;display:flex;flex-direction:column;gap:.5rem;align-items:center}
+.bt.win{border-color:var(--red);background:#fff4f4}
+.bt .n{font-weight:800;color:var(--g);font-size:1.5rem}
+.bt .s{font-size:clamp(2.6rem,5vw,4rem);font-weight:900}
+.bt .w{min-height:1.6rem;color:var(--red);font-weight:800;font-size:1.2rem;text-align:center}
+.bt .row{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
+.bt .sbtn{font-size:1.15rem;padding:.3rem .7rem}
+.hide{display:none!important}
+.keys{font-size:.95rem;color:var(--mute)}
+</style>
+</head>
+<body>
+<header>
+  <h1>WORD FORMATION CHALLENGE</h1>
+  <span class="meta" id="meta"></span>
+  <button class="hbtn" id="teamsBtn" aria-pressed="false">Team points</button>
+  <button class="hbtn" id="boardBtn" aria-pressed="false">Beat the Teacher</button>
+  <button class="hbtn" id="resetBtn">Reset</button>
+</header>
+
+<main id="quizView">
+  <section class="stage">
+    <div class="card" id="card"></div>
+    <div class="controls" id="controls">
+      <button class="btn" id="back">◀ Back</button>
+      <button class="btn" id="timerBtn">Start timer</button>
+      <span class="timer" id="timer">0:30</span>
+      <select id="secs" aria-label="Timer length"><option>20</option><option selected>30</option><option>45</option><option>60</option><option>90</option></select>
+      <button class="btn primary" id="reveal">Reveal answer</button>
+      <button class="btn" id="next">Next ▶</button>
+      <div class="dots" id="dots"></div>
+    </div>
+  </section>
+  <aside id="teams">
+    <h2>Team points</h2>
+    <p class="small">One point for each correct answer written before the reveal.</p>
+    <label class="small">Teams <select id="nTeams"><option>4</option><option>5</option><option selected>6</option></select></label>
+    <div id="teamList"></div>
+  </aside>
+</main>
+
+<main id="boardView" class="hide">
+  <section class="board">
+    <h2>EXERCISE 7: BEAT THE TEACHER</h2>
+    <div class="teacher">
+      <span class="lbl">Teacher</span>
+      <button class="sbtn" id="tMinus">−1</button>
+      <span class="big" id="tScore">12</span>
+      <button class="sbtn" id="tPlus">+1</button>
+    </div>
+    <p class="small">Correct answer +2 · valid clue on gaps 1, 3, 4, 8 +1 · a team with more points than the teacher wins. <label>Teams <select id="nBoard"><option>4</option><option>5</option><option selected>6</option></select></label></p>
+    <div class="grid" id="boardGrid"></div>
+  </section>
+</main>
+
+<script>
+const Q = [
+  {round:'Round 1 · Build the word', task:'Choose the suffix that makes a noun.', type:'choose',
+   html:'concentrate → concentr<span class="gap"></span>', opts:['-ment','-ation','-ance'], right:1,
+   a:'concentration', why:'Verbs ending in -ate drop the e and add -ion: concentrate → concentration.'},
+  {round:'Round 1 · Build the word', task:'Choose the prefix that makes the opposite.', type:'choose',
+   html:'<span class="gap"></span>honest', opts:['un-','dis-','im-'], right:1,
+   a:'dishonest', why:'Honest takes dis-. Each word has its own prefix: you can’t add any prefix to any word.'},
+  {round:'Round 2 · Complete the sentence', task:'Write the correct form of the word in capitals.', type:'write',
+   html:'I felt so much <span class="gap"></span> when I fell over in front of everyone. <span class="stem">EMBARRASS</span>',
+   a:'embarrassment', why:'After “so much” we need a noun: embarrass + -ment. Keep rr and ss.'},
+  {round:'Round 2 · Complete the sentence', task:'Write the correct form of the word in capitals.', type:'write',
+   html:'Her <span class="gap"></span> in the final was the best of her career. <span class="stem">PERFORM</span>',
+   a:'performance', why:'After “Her” we need a noun: perform + -ance.'},
+  {round:'Round 2 · Complete the sentence', task:'Write the correct form of the word in capitals.', type:'write',
+   html:'My new trainers were <span class="gap"></span> tight, so I took them back. <span class="stem">COMFORT</span>',
+   a:'uncomfortably', why:'Before an adjective (tight) we need an adverb (-ly). “I took them back” = negative, so un-. comfort → comfortable → uncomfortably.'},
+  {round:'Round 3 · Find the mistake', task:'One word is wrong. Write it correctly.', type:'fix',
+   html:'My coach says I’ve made a big improvment this term.',
+   a:'improvement', why:'Keep the e: improve + -ment = improvement.'},
+  {round:'Round 3 · Find the mistake', task:'One word is wrong. Write it correctly.', type:'fix',
+   html:'It’s unpossible to train every day when you have exams.',
+   a:'impossible', why:'Possible takes im-, not un-.'},
+  {round:'Round 3 · Find the mistake', task:'One word is wrong. Write it correctly.', type:'fix',
+   html:'Fitness apps can give you the motivatement to keep going.',
+   a:'motivation', why:'Motivate drops the e and adds -ion: motivation.'},
+  {round:'Round 4 · Transform', task:'Rewrite the sentence with a form of the word in capitals. Keep the meaning.', type:'write',
+   html:'She doesn’t agree with the new training rules. <span class="stem">AGREE</span>',
+   a:'She disagrees with the new training rules.', why:'dis- + agree = disagree. She → disagrees (don’t forget the s).'},
+  {round:'Round 4 · Transform', task:'Rewrite the sentence with a form of the word in capitals. Keep the meaning.', type:'write',
+   html:'We arranged the chairs again for the next class. <span class="stem">ARRANGE</span>',
+   a:'We rearranged the chairs for the next class.', why:'re- means again, so “again” disappears: rearranged.'}
+];
+
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('wfc_'+k); return v===null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('wfc_'+k, JSON.stringify(v)); }catch(e){} }
+};
+
+let idx = -1, revealed = false, timerId = null, left = 30;
+let teamScores = store.get('teams', [0,0,0,0,0,0]);
+let board = store.get('board', {teacher:12, teams:[0,0,0,0,0,0]});
+const $ = id => document.getElementById(id);
+
+function intro(){
+  $('card').innerHTML = `<div class="intro">
+    <h2>Word Formation Challenge</h2>
+    <ul>
+      <li>Write every answer in your notebook <b>before</b> the answer appears.</li>
+      <li>Spelling counts. Correct answers win, not fast answers.</li>
+    </ul>
+    <div class="rounds"><div>1 Build the word</div><div>2 Complete the sentence</div><div>3 Find the mistake</div><div>4 Transform</div></div>
+    <p class="keys">Teacher keys: T = timer · Enter = reveal · → next · ← back</p>
+  </div>`;
+  $('meta').textContent = '10 questions';
+  $('back').disabled = true; $('reveal').disabled = true; $('timerBtn').disabled = true;
+  $('next').textContent = 'Start ▶';
+  dots();
+}
+
+function render(){
+  const q = Q[idx];
+  revealed = false; stopTimer(); resetTimer();
+  let body = `<span class="chip">${q.round}</span><p class="task">${q.task}</p><p class="prompt">${q.html}</p>`;
+  if (q.type === 'choose') body += `<div class="opts">${q.opts.map((o,i)=>`<span class="opt" data-i="${i}">${o}</span>`).join('')}</div>`;
+  body += `<div class="answer" id="ans"><p class="a">${q.a}</p><p class="why">${q.why}</p></div>`;
+  $('card').innerHTML = body;
+  $('meta').textContent = `Question ${idx+1} / ${Q.length}`;
+  $('back').disabled = false; $('reveal').disabled = false; $('timerBtn').disabled = false;
+  $('next').textContent = idx === Q.length-1 ? 'Finish ▶' : 'Next ▶';
+  dots();
+}
+
+function finish(){
+  stopTimer();
+  $('card').innerHTML = `<div class="intro"><h2>Well done!</h2>
+    <ul><li>Count your correct answers out of 10.</li><li>Look at any mistakes: was it the word class, the meaning or the spelling?</li><li>Now use the same steps in Exercise 7.</li></ul></div>`;
+  $('meta').textContent = 'Finished';
+  $('reveal').disabled = true; $('timerBtn').disabled = true;
+  $('next').textContent = 'Next ▶'; $('next').disabled = true;
+  idx = Q.length; dots();
+}
+
+function reveal(){
+  if (idx < 0 || idx >= Q.length || revealed) return;
+  revealed = true; stopTimer();
+  $('ans').classList.add('show');
+  const q = Q[idx];
+  if (q.type === 'choose') document.querySelectorAll('.opt').forEach(o => o.classList.add(+o.dataset.i === q.right ? 'right' : 'dim'));
+}
+
+function go(d){
+  const n = idx + d;
+  $('next').disabled = false;
+  if (n < 0){ idx = -1; intro(); return; }
+  if (n >= Q.length){ finish(); return; }
+  idx = n; render();
+}
+
+function dots(){
+  $('dots').innerHTML = Q.map((_,i)=>`<span class="dot${i<=idx && idx>=0 ? ' on':''}" title="Question ${i+1}"></span>`).join('');
+}
+
+/* timer */
+function fmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function resetTimer(){ left = +$('secs').value; const t=$('timer'); t.textContent = fmt(left); t.className='timer'; $('timerBtn').textContent='Start timer'; }
+function stopTimer(){ if (timerId){ clearInterval(timerId); timerId = null; } }
+function toggleTimer(){
+  if (idx < 0 || idx >= Q.length || revealed) return;
+  if (timerId){ stopTimer(); $('timerBtn').textContent='Resume'; return; }
+  if (left <= 0) resetTimer();
+  $('timerBtn').textContent = 'Pause';
+  timerId = setInterval(() => {
+    left--; const t = $('timer'); t.textContent = fmt(Math.max(left,0));
+    t.className = 'timer' + (left <= 5 ? ' low' : '');
+    if (left <= 0){ stopTimer(); t.className='timer done'; t.textContent="Time!"; $('timerBtn').textContent='Restart'; beep(); }
+  }, 1000);
+}
+function beep(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [0, .25].forEach(off => { const o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = 660; o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(.2, ctx.currentTime+off); g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime+off+.22);
+      o.start(ctx.currentTime+off); o.stop(ctx.currentTime+off+.23); });
+  }catch(e){}
+}
+
+/* team points (quiz) */
+function renderTeams(){
+  const n = +$('nTeams').value;
+  $('teamList').innerHTML = Array.from({length:n},(_,i)=>`<div class="team"><span class="n">Team ${i+1}</span>
+    <button class="sbtn" data-t="${i}" data-d="-1" aria-label="Team ${i+1} minus one">−</button>
+    <span class="s">${teamScores[i]}</span>
+    <button class="sbtn" data-t="${i}" data-d="1" aria-label="Team ${i+1} plus one">+</button></div>`).join('');
+}
+$('teamList').addEventListener('click', e => {
+  const b = e.target.closest('[data-t]'); if (!b) return;
+  const i = +b.dataset.t; teamScores[i] = Math.max(0, teamScores[i] + +b.dataset.d);
+  store.set('teams', teamScores); renderTeams();
+});
+$('nTeams').addEventListener('change', renderTeams);
+
+/* Beat the Teacher scoreboard */
+function renderBoard(){
+  const n = +$('nBoard').value;
+  $('tScore').textContent = board.teacher;
+  $('boardGrid').innerHTML = Array.from({length:n},(_,i)=>{
+    const s = board.teams[i], win = s > board.teacher;
+    return `<div class="bt${win?' win':''}"><span class="n">Team ${i+1}</span><span class="s">${s}</span>
+      <span class="w">${win ? 'Beats the teacher!' : ''}</span>
+      <div class="row"><button class="sbtn" data-b="${i}" data-d="2">+2 answer</button><button class="sbtn" data-b="${i}" data-d="1">+1 clue</button><button class="sbtn" data-b="${i}" data-d="-1">−1</button></div></div>`;
+  }).join('');
+}
+$('boardGrid').addEventListener('click', e => {
+  const b = e.target.closest('[data-b]'); if (!b) return;
+  const i = +b.dataset.b; board.teams[i] = Math.max(0, board.teams[i] + +b.dataset.d);
+  store.set('board', board); renderBoard();
+});
+$('tMinus').onclick = () => { board.teacher = Math.max(0, board.teacher-1); store.set('board', board); renderBoard(); };
+$('tPlus').onclick = () => { board.teacher++; store.set('board', board); renderBoard(); };
+$('nBoard').addEventListener('change', renderBoard);
+
+function showBoard(on){
+  $('quizView').classList.toggle('hide', on); $('boardView').classList.toggle('hide', !on);
+  $('boardBtn').setAttribute('aria-pressed', on); $('teamsBtn').classList.toggle('hide', on);
+  if (on){ stopTimer(); renderBoard(); }
+  try{ history.replaceState(null, '', on ? '#scoreboard' : '#'); }catch(e){}
+}
+
+/* wiring */
+$('next').onclick = () => go(1);
+$('back').onclick = () => go(-1);
+$('reveal').onclick = reveal;
+$('timerBtn').onclick = toggleTimer;
+$('secs').onchange = () => { if (!timerId) resetTimer(); };
+$('teamsBtn').onclick = () => { const on = !$('teams').classList.contains('show'); $('teams').classList.toggle('show', on); $('teamsBtn').setAttribute('aria-pressed', on); renderTeams(); };
+$('boardBtn').onclick = () => showBoard($('boardView').classList.contains('hide'));
+$('resetBtn').onclick = () => {
+  if ($('boardView').classList.contains('hide')){
+    teamScores = [0,0,0,0,0,0]; store.set('teams', teamScores); renderTeams(); idx = -1; $('next').disabled = false; intro();
+  } else {
+    board = {teacher:12, teams:[0,0,0,0,0,0]}; store.set('board', board); renderBoard();
+  }
+};
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'SELECT') return;
+  if (!$('boardView').classList.contains('hide')) return;
+  if (e.key === 'ArrowRight'){ e.preventDefault(); if (!$('next').disabled) go(1); }
+  else if (e.key === 'ArrowLeft'){ e.preventDefault(); if (idx >= 0) go(-1); }
+  else if (e.key === 'Enter'){ e.preventDefault(); reveal(); }
+  else if (e.key === 't' || e.key === 'T' || e.key === ' '){ e.preventDefault(); toggleTimer(); }
+});
+
+// buttons never keep focus, so Enter / Space only ever do what the key list says
+document.addEventListener('click', e => { const btn = e.target.closest('button'); if (btn) btn.blur(); });
+intro(); renderTeams(); resetTimer();
+if (location.hash === '#scoreboard') showBoard(true);
+window.addEventListener('hashchange', () => showBoard(location.hash === '#scoreboard'));
+</script>
+</body>
+</html>
